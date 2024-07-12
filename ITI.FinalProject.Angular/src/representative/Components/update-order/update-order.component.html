@@ -1,0 +1,42 @@
+<div class="form-container">
+    <h2>Update Order</h2>
+    <form class="form" [formGroup]="form" (submit)="updateOrder()">
+        <div class="form-row">
+                        <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-select text-center" id="status" formControlName="orderStatus" (change)="onStatusChange()">
+                    <option selected disabled value=-1>--Select the order status--</option>
+                    @for (option of options; track $index) {
+                        <option value={{$index}}>{{ option }}</option>
+                    }
+                </select>                      
+                @if (form.controls['orderStatus'].touched && form.controls['orderStatus'].errors) {
+                    <div id="status-validation" class="form-text text-danger">Status is Required</div>
+                }
+            </div>
+            @if (showInputs) {
+                                <div class="form-group">
+                    <label for="orderMoneyReceived">OrderMoneyReceived</label>
+                    <input type="number" id="orderMoneyReceived" name="orderMoneyReceived" formControlName="orderMoneyReceived">
+                                    </div>
+                <div class="form-group">
+                    <label for="shippingMoneyReceived">ShippingMoneyReceived</label>
+                    <input type="number" id="shippingMoneyReceived" name="shippingMoneyReceived" formControlName="shippingMoneyReceived">
+                                    </div>
+            }
+        
+        </div>
+        <div class="form-row">
+            
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes" formControlName="notes" rows="4" style="width: 100%;"></textarea>
+                                    </div>
+            
+        </div>
+
+        <div class="form-row save-button-container">
+            <button type="submit" class="save-btn">Save <i class="bi bi-check-lg"></i></button>
+        </div>
+    </form>
+</div>

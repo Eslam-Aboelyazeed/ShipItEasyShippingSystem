@@ -1,0 +1,123 @@
+.form-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 100%;
+    margin: 20px auto;
+  }
+  
+  h2 {
+    text-align: left;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    font-size: 2rem;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .form-group {
+    flex: 1;
+    margin-right: 10px;
+    min-width: 200px;
+  }
+  
+  .form-group:last-child {
+    margin-right: 0;
+  }
+  
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #1a1a1a;
+    display: block;
+    font-size: .8rem;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #00c1cf;
+    outline: none;
+  }
+
+  button {
+    background-color: #007bff;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 10%;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  .save-btn {
+    background-color: #29cc97;
+    align-self: flex-end;
+    transition: all 0.3s ease;
+  }
+  
+  .save-btn:hover {
+    background-color: #11503b;
+    color: #eee;
+  }
+  
+  .text {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 0;
+  }
+  
+  .save-button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+    }
+  
+    .text {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  
+    .save-btn {
+      width: 20%;
+    }
+  }

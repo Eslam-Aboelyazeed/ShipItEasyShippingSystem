@@ -1,0 +1,74 @@
+<h2>City List</h2>
+<div class="table-controls">
+    <div class="entries-select">
+      <label for="entries">Show</label>
+      <select id="entries" [(ngModel)]="selectedEntries" (change)="onEntriesChange()">
+        <option value="8">8</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+      </select>
+      <label for="entries" class="ms-2">entries</label>
+    </div>
+    <div class="search-bar">
+      <label for="search">Search:</label>
+      <input type="text" id="search" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="🔍 Search records">
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Name</th>
+          <th>Governorate</th>
+          <th>Normal Shipping Cost</th>
+          <th>Pick-Up Shipping Cost</th>
+          <th>Settings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of pagedData;let i=index;">
+          <td>{{  getRowIndex(i) }}</td>
+          <td>
+            <div class="name-role">
+              <span class="name">{{ row.name }}</span>
+            </div>
+          </td>
+          <td><span>{{ getGovernorateName(row.governorateId) }}</span></td>
+          <td>{{ row.normalShippingCost}}</td>
+          <td>{{row.pickupShippingCost}}</td>
+          <td class="settings">
+            <div class="pen-settings">
+              <a class="setting" [routerLink]="['/admin/city/edit', row.id]">
+                <i class="bi bi-pencil"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button type="button" (click)="previousPage()" [disabled]="currentPage === 1">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <div class="page-numbers">
+      <button *ngFor="let page of [].constructor(totalPages); let pageIndex = index"
+        [ngClass]="{'active-page': pageIndex + 1 === currentPage}" (click)="goToPage(pageIndex + 1)">
+        {{ pageIndex + 1 }}
+      </button>
+    </div>
+    <button type="button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <i class="bi bi-arrow-right"></i>
+    </button>
+  </div>
+  <div class="pagination-info">
+    Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ filteredData.length }} entries
+  </div>
+  <div class="d-grid">
+    <button  [routerLink]='["/admin/city/add"]' class="add-btn rounded-5 py-2 px-4 fs-5 fw-bold " style="justify-self: end;">Add City <i class="bi bi-plus"></i></button>
+  </div>
+

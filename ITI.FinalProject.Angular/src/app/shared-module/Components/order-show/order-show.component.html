@@ -1,0 +1,115 @@
+<h2>Order List</h2>
+
+
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link {{(orderStatus == null) ? 'active':''}}  m-1" (click)="changeOrderStatus(-1)"  aria-current="page" >All</a>
+  </li>
+  <li *ngFor="let status of orderStatusName; let i= index" class="nav-item">
+    <a class="nav-link {{(orderStatus== i) ? 'active':''}}  m-1" (click)="changeOrderStatus(i)"  aria-current="page" >{{status}}</a>
+  </li>
+
+</ul>
+
+
+<div class="table-controls mt-3">
+  <div class="entries-select">
+    <label for="entries">Show</label>
+    <select id="entries" [(ngModel)]="selectedEntries" (change)="onEntriesChange()">
+      <option value="5">5</option>
+      <option value="8">8</option>
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+    </select>
+    <label for="entries" class="ms-2">entries</label>
+  </div>
+
+</div>
+
+<div class="table-container">
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th>Client Data</th>
+        <th>Governorate</th>
+        <th>City</th>
+        <th>Total Order Price</th>
+        <th>Settings</th>
+        <th>Status</th>
+        <th>Delete</th>
+        <th>Print</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders; let i= index">
+        <td>{{order.id}}</td>
+        <td>
+          <div class="name-role">
+            <span class="name">{{order.date}}</span>
+          </div>
+        </td>
+        <td>
+          <h4>{{order.clientName}}</h4>
+          
+        </td>
+        <td>{{order.governorateName}}</td>
+        <td>{{order.cityName}}</td>
+        <td>{{order.totalPrice}}</td>
+        
+        
+        
+         @if ((order.status == 0 || order.status == 1 || order.status == 2 || order.status == 7) && isNotMerchant ) {
+           <td>
+             <div class="settings">
+               <a [routerLink]="['/order/edit', order.id]" class="setting">
+                 <i class="bi bi-pencil"></i>
+                </a>
+              </div>
+            </td>
+          }@else {
+            <td>_</td>
+          }
+        <td><span
+          [ngClass]="{'active': StatusName(order.status) === 'Active', 'inactive':StatusName(order.status) === 'Inactive'}"
+           class="badge active">{{StatusName(order.status)}}</span></td>
+        
+        <td>
+          <a  class="setting" >
+            <i class="bi bi-trash3 text-danger px-1"></i>
+          </a>
+        </td>
+        <td>
+          <a  class="setting" >
+            <i class="bi bi-printer text-primary px-1"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination">
+  <button type="button" (click)="previousPage()" [disabled]="currentPage === 1">
+    <i class="bi bi-arrow-left"></i>
+  </button>
+  <div class="page-numbers">
+    <button *ngFor="let page of [].constructor(pagesNum); let pageIndex = index"
+      [ngClass]="{'active-page': pageIndex + 1 === currentPage}" (click)="goToPage(pageIndex + 1)">
+      {{ pageIndex + 1 }}
+    </button>
+  </div>
+  <button type="button" (click)="nextPage()" [disabled]="currentPage === pagesNum">
+    <i class="bi bi-arrow-right"></i>
+  </button>
+</div>
+<div class="pagination-info">
+  Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ orders.length }} entries
+</div>
+@if (!isNotMerchant) {
+  <div class="d-grid">
+    <button  [routerLink]='["/merchant/order/add"]' class="add-btn rounded-5 py-2 px-4 fs-5 fw-bold " style="justify-self: end;">Add Order <i class="bi bi-plus"></i></button>
+  </div>
+}

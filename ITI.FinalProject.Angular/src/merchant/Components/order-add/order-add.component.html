@@ -1,0 +1,191 @@
+<div class="form-container">
+  <h2>Add Order</h2>
+  <form [formGroup]="orderForm" *ngIf="orderForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="type">Type <span class="required">*</span></label>
+        <select id="type" formControlName="type" required>
+          <option value="" disabled>Select Order Type</option>
+          <option *ngFor="let type of orderTypes" [value]="type.key">{{ type.value }}</option>
+        </select>
+        <div *ngIf="orderForm && orderForm.get('type')?.invalid && orderForm.get('type')?.touched" class="error-msg">
+          Type is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Client name <span class="required">*</span></label>
+        <input type="text" id="name" formControlName="clientName" required>
+        <div *ngIf="orderForm && orderForm.get('clientName')?.invalid && orderForm.get('clientName')?.touched"
+          class="error-msg">
+          <div *ngIf="orderForm.get('clientName')?.errors?.['required']">Client name is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email">
+        <div *ngIf="orderForm && orderForm.get('email')?.invalid && orderForm.get('email')?.touched" class="error-msg">
+          <div *ngIf="orderForm.get('email')?.errors?.['email']">Email is invalid.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="phone">Phone <span class="required">*</span></label>
+        <input type="text" id="phone" formControlName="phone" required>
+        <div *ngIf="orderForm && orderForm.get('phone')?.invalid && orderForm.get('phone')?.touched" class="error-msg">
+          Phone is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone2">Phone 2</label>
+        <input type="text" id="phone2" formControlName="phone2">
+      </div>
+      <div class="form-group">
+        <label for="governorateId">Governorate <span class="required">*</span></label>
+        <select id="governorate" formControlName="governorateId">
+          <option value="" disabled selected>Select Governorate</option>
+          <option *ngFor="let governorate of governorates" [value]="governorate.id">
+            {{ governorate.name }}
+          </option>
+        </select>
+        <div *ngIf="orderForm && orderForm.get('governorateId')?.invalid && orderForm.get('governorateId')?.touched"
+          class="error-msg">
+          Governorate is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="cityId">City <span class="required">*</span></label>
+        <select id="city" formControlName="cityId">
+          <option value="" disabled selected>Select City</option>
+          <option *ngFor="let city of filteredCities" [value]="city.id">
+            {{ city.name }}
+          </option>
+        </select>
+        <div *ngIf="orderForm && orderForm.get('cityId')?.invalid && orderForm.get('cityId')?.touched"
+          class="error-msg">
+          City is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="village">Village and Street <span class="required">*</span></label>
+        <input type="text" id="village" formControlName="villageAndStreet" required>
+        <div
+          *ngIf="orderForm && orderForm.get('villageAndStreet')?.invalid && orderForm.get('villageAndStreet')?.touched"
+          class="error-msg">
+          Village and Street is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="switch d-flex flex-column gap-3 align-items-center">Delivery to a village?
+          <input type="checkbox" formControlName="shippingToVillage">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="shipping">Shipping type <span class="required">*</span></label>
+        <select id="shipping" formControlName="shippingType" required>
+          <option value="" disabled>Select Shipping Type</option>
+          <option *ngFor=" let shippingType of shippingTypes" [value]="shippingType.key">{{ shippingType.value}}
+          </option>
+        </select>
+        <div *ngIf="orderForm && orderForm.get('shippingType')?.invalid && orderForm.get('shippingType')?.touched"
+          class="error-msg">
+          Shipping type is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="payment">Payment type <span class="required">*</span></label>
+        <select id="payment" formControlName="paymentType" required>
+          <option value="" disabled>Select Payment Type</option>
+          <option *ngFor="let paymentType of paymentTypes" [value]="paymentType.key">{{ paymentType.value }}</option>
+        </select>
+        <div *ngIf="orderForm && orderForm.get('paymentType')?.invalid && orderForm.get('paymentType')?.touched"
+          class="error-msg">
+          Payment type is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="branchId">Branch <span class="required">*</span></label>
+        <select id="branch" formControlName="branchId">
+          <option value="" disabled selected>Select Branch</option>
+          <option *ngFor="let branch of filteredBranches" [value]="branch.id">
+            {{ branch.name }}
+          </option>
+        </select>
+        <div *ngIf="orderForm && orderForm.get('branchId')?.invalid && orderForm.get('branchId')?.touched"
+          class="error-msg">
+          Branch is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Weight (KG)</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="products">
+          <ng-container *ngFor="let product of products.controls; let i = index">
+            <tr [formGroupName]="i">
+              <td>
+                <input formControlName="name" placeholder="Product Name *" required />
+                <div *ngIf="product.get('name')?.invalid && product.get('name')?.touched" class="error-msg">
+                  Product Name is required.
+                </div>
+              </td>
+              <td>
+                <input formControlName="weight" placeholder="Weight *" required />
+                <div *ngIf="product.get('weight')?.invalid && product.get('weight')?.touched" class="error-msg">
+                  Weight is required.
+                </div>
+              </td>
+              <td>
+                <input formControlName="price" placeholder="Price *" required />
+                <div *ngIf="product.get('price')?.invalid && product.get('price')?.touched" class="error-msg">
+                  Price is required.
+                </div>
+              </td>
+              <td>
+                <input formControlName="quantity" placeholder="Quantity *" required />
+                <div *ngIf="product.get('quantity')?.invalid && product.get('quantity')?.touched" class="error-msg">
+                  Quantity is required.
+                </div>
+              </td>
+              <td class="d-flex justify-content-center align-items-center">
+                <button class="d-flex justify-content-center" type="button" (click)="removeProduct(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    
+    <div class="form-group add-txt">
+      <button type="button" (click)="toggleAddProduct()" [class.add-new-btn]="!addingProduct"
+        [class.save-btn]="addingProduct">
+        {{ addingProduct ? 'Save Product' : 'Add Product' }}
+        <i *ngIf="addingProduct" class="bi bi-check-lg"></i>
+        <i *ngIf="!addingProduct" class="bi bi-plus-lg"></i>
+      </button>
+    </div>
+
+    
+    <button type="submit" class="save-btn">
+      Submit Order
+    </button>
+
+  </form>
+</div>

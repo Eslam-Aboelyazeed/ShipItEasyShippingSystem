@@ -1,0 +1,26 @@
+<div class="form-container">
+  <h2>Edit Employee</h2>
+  <form [formGroup]="employeeForm" (submit)="onSubmit()">
+    <div class="form-row">
+            <div class="form-group">
+                <label for="status">Status</label>
+        <select class="form-select text-center" id="status" formControlName="status">
+            <option selected disabled value=-1>--Select the employee status--</option>
+            @for (option of options; track $index) {
+                <option value="{{$index}}">{{ option }}</option>
+            }
+        </select>                      
+        @if (employeeForm.controls['status'].touched && employeeForm.controls['status'].errors) {
+            <div id="status-validation" class="form-text text-danger">Employee Status is Required</div>
+        }
+    </div>
+    </div>
+
+    
+    <div class="form-row save-button-container mb-0">
+      <button type="submit" class="save-btn">Save Employee <i class="bi bi-check-lg"></i></button>
+    </div>
+  </form>
+
+  
+  </div>

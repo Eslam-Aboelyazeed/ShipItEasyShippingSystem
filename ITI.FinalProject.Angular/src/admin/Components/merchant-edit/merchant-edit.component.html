@@ -1,0 +1,28 @@
+
+
+<div class="form-container">
+  <h2>Edit merchant</h2>
+  <form [formGroup]="merchantForm" (submit)="onSubmit()">
+    <div class="form-row">
+            <div class="form-group">
+                <label for="status">Status</label>
+        <select class="form-select text-center" id="status" formControlName="status">
+            <option selected disabled value=-1>--Select the merchant status--</option>
+            @for (option of options; track $index) {
+                <option value="{{$index}}">{{ option }}</option>
+            }
+        </select>                      
+        @if (merchantForm.controls['status'].touched && merchantForm.controls['status'].errors) {
+            <div id="status-validation" class="form-text text-danger">merchant Status is Required</div>
+        }
+    </div>
+    </div>
+
+    
+    <div class="form-row save-button-container mb-0">
+      <button type="submit" class="save-btn">Save merchant <i class="bi bi-check-lg"></i></button>
+    </div>
+  </form>
+
+  
+  </div>

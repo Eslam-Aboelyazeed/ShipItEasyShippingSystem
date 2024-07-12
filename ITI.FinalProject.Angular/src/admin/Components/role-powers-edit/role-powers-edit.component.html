@@ -1,0 +1,65 @@
+<div class="form-container">
+    <h2>Edit Role</h2>
+    <form class="form" [formGroup]="form" (submit)="editRole()">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Name</label>
+                @if (form.controls['name']) {
+                    <input type="text" id="name" name="name" formControlName="name">
+                    @if (form.controls['name'].touched && getName.errors) {
+                        <div id="name-validation" class="form-text text-danger">Governorate Name is Required and must have 4 or more characters</div>
+                    }
+                }
+            </div>
+                                </div>
+        <div class="form-row">
+            <div class="table-container">
+                <table class="product-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Power</th>
+                      <th>Add</th>
+                      <th>Delete</th>
+                      <th>Edit</th>
+                      <th>Show</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of powers; let i = index" >
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        <div class="name-role">
+                          <span class="name">{{ getTableName(row.tableName) }}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="name-role">
+                            <input class="form-check" type="checkbox" id="{{ getTableName(row.tableName) }}Create" name="{{ getTableName(row.tableName) }}Create" formControlName="{{ getTableName(row.tableName) }}Create">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="name-role">
+                            <input class="form-check" type="checkbox" id="{{ getTableName(row.tableName) }}Delete" name="{{ getTableName(row.tableName) }}Delete" formControlName="{{ getTableName(row.tableName) }}Delete">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="name-role">
+                            <input class="form-check" type="checkbox" id="{{ getTableName(row.tableName) }}Update" name="{{ getTableName(row.tableName) }}Update" formControlName="{{ getTableName(row.tableName) }}Update">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="name-role">
+                            <input class="form-check" type="checkbox" id="{{ getTableName(row.tableName) }}Read" name="{{ getTableName(row.tableName) }}Read" formControlName="{{ getTableName(row.tableName) }}Read">
+                        </div>
+                      </td>
+                                          </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+              <div class="form-row save-button-container">
+            <button type="submit" class="save-btn">Save <i class="bi bi-check-lg"></i></button>
+        </div>
+    </form>
+</div>

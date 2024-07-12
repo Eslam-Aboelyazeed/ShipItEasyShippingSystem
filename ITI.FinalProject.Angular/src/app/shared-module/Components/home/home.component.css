@@ -1,0 +1,52 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 50px;
+  background-color: rgb(247, 247, 247);
+  border-radius: 8px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+  
+  .home-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0px 5px;
+  }
+  
+  .home-card {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 18px;
+    position: relative;
+  }
+  .badge {
+      background-color: #b56bbe;
+      color: #fff;
+      border-radius: 50%;
+      padding: 10px;
+      position: absolute;
+      top: 15px;
+      right: 4px;
+  }
+  .home-page{
+    flex: 1;
+    margin: 5px 5px 0px;
+    padding: 20px;
+    background-color: #ffffff;  
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+  }
+  .home-row:last-child {
+    margin-bottom: 20px;
+  }
+  

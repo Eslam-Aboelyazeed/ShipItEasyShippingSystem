@@ -1,0 +1,81 @@
+<h2>Branch List</h2>
+<div class="table-controls mt-3">
+  <div class="entries-select">
+    <label for="entries">Show</label>
+    <select id="entries" [(ngModel)]="selectedEntries" (change)="onEntriesChange()">
+      <option value="5">5</option>
+      <option value="8">8</option>
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+    </select>
+    <label for="entries" class="ms-2">entries</label>
+  </div>
+  <div class="search-bar">
+    <label for="search">Search:</label>
+    <input type="text" id="search" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="🔍 Search records">
+  </div>
+</div>
+<div class="table-container">
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>Adding Date</th>
+        <th>Status</th>
+        <th>Settings</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let branch of branches; let i = index">
+        <td>{{branch.id}}</td>
+        <td>
+          <div class="name-role">
+            <span class="name">{{branch.name}}</span>
+          </div>
+        </td>
+        <td>{{getCityName(branch.cityId)}}</td>
+        <td>{{branch.addingDate}}</td>
+        <td><span
+          [ngClass]="{'active': StatusName(branch.status) === 'Active', 'inactive':StatusName(branch.status) === 'Inactive'}"
+           class="badge active">{{StatusName(branch.status)}}</span></td>
+        <td>
+          <div class="settings">
+            <a [routerLink]="['/admin/branch/edit/',branch.id]" class="pen-settings">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <a  class="setting">
+              <i class="bi bi-trash3 text-danger px-1" (click)="deleteBranch(branch.id)"></i>
+            </a>
+
+          </div>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="pagination">
+  <button type="button" (click)="previousPage()" [disabled]="currentPage === 1">
+    <i class="bi bi-arrow-left"></i>
+  </button>
+  <div class="page-numbers">
+    <button *ngFor="let page of [].constructor(pagesNum); let pageIndex = index"
+      [ngClass]="{'active-page': pageIndex + 1 === currentPage}" (click)="goToPage(pageIndex + 1)">
+      {{ pageIndex + 1 }}
+    </button>
+  </div>
+  <button type="button" (click)="nextPage()" [disabled]="currentPage === pagesNum">
+    <i class="bi bi-arrow-right"></i>
+  </button>
+</div>
+<div class="pagination-info">
+  Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ branches.length }} entries
+</div>
+
+
+<div class="d-grid">
+  <button  [routerLink]='["/admin/branch/add"]' class="add-btn rounded-5 py-2 px-4 fs-5 fw-bold " style="justify-self: end;">Add Branch <i class="bi bi-plus"></i></button>
+</div>
+

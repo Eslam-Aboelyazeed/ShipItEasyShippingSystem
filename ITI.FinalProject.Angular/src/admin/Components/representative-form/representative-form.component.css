@@ -1,0 +1,24 @@
+.row{
+  max-width: 100%;
+}
+
+input ,select,.select{
+  border: 1px solid rgb(202, 202, 202) !important;
+  border-radius: 5px;
+ height: 35px;
+ border: 0;
+ padding: 10px;
+}
+.select{
+
+  padding: 5px;
+
+}
+.error{
+  color: rgb(182, 9, 9);
+  font-weight: normal;
+  font-size: 15px;
+}
+label{
+  font-weight: bold;
+}

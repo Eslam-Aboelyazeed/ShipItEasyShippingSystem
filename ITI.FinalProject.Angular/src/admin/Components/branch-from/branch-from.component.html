@@ -1,0 +1,41 @@
+
+<h1 class=" text-start my-5">{{(branchId)?"Edit Branch":"Add Branch"}}</h1>
+  <form [formGroup]="branchForm" class=" d-flex flex-row flex-wrap " >
+    <div class="row  w-100">
+      <div class="col-4 mb-3  d-flex flex-column">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="" id="name" aria-describedby="Name" formControlName="name">
+        <label *ngIf="getName.hasError('required')  && getName.touched" class="error">
+          the Name is required
+        </label>
+      </div>
+      <div class="col-4 mb-3  d-flex flex-column">
+        <label for="city" class="form-label ">City</label>
+        <select class="select form-select" aria-label="Default select example" formControlName="cityId">
+          <option value="0" selected>Select the city</option>
+          <option *ngFor="let city of cities; let i= index" [value]="city.id">{{city.name}}</option>
+
+        </select>
+        <label *ngIf="(getCity.hasError('required') || getCity.hasError('min'))  && getCity.touched" class="error">
+          the City is required
+        </label>
+      </div>
+
+
+      <div class="col-4 mb-3  d-flex flex-column">
+
+        <label for="status" class="form-label ">Status</label>
+        <select  class="select form-select p-1" aria-label="Default select example" formControlName="status">
+          <option selected value="1">Active</option>
+          <option value="0">InActive</option>
+        </select>
+        <label class="error"></label>
+
+      </div>
+    </div>
+        <div class="row ">
+      <button (click)="onSubmit()" [disabled]="!branchForm.valid" class="btn btn-primary ms-2">Submit</button>
+    </div>
+
+  </form>
+

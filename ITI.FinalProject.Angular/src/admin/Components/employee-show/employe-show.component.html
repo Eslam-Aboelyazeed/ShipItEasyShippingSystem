@@ -1,0 +1,79 @@
+<h2>Employee List</h2>
+<div class="table-controls">
+    <div class="entries-select">
+      <label for="entries">Employees</label>
+      <select id="entries" [(ngModel)]="selectedEntries" (change)="onEntriesChange()">
+        <option value="8">8</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+      </select>
+      <label for="entries" class="ms-2">entries</label>
+    </div>
+    <div class="search-bar">
+      <label for="search">Search:</label>
+      <input type="text" id="search" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="🔍 Search records">
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Branch</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Settings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of pagedData">
+          <td>{{ row.id }}</td>
+          <td>
+            <div class="name-role">
+              <span class="name">{{ row.fullName }}</span>
+            </div>
+          </td>
+          <td>{{ row.email }}</td>
+          <td><span>{{ row.phoneNumber }}</span></td>
+          <td>{{ row.branch }}</td>
+          <td>{{row.role}}</td>
+          <td>
+            <span class="badge" [ngClass]="{'active': getStatusText(row.status) === 'Active', 'inactive': getStatusText(row.status) === 'Inactive'}">{{ getStatusText(row.status) }}</span>
+          </td>
+          <td class="settings">
+            <div class="pen-settings">
+              <a [routerLink]="['/admin/employee/edit', row.id]" class="setting">
+                <i class="bi bi-pencil"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button type="button" (click)="previousPage()" [disabled]="currentPage === 1">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <div class="page-numbers">
+      <button *ngFor="let page of [].constructor(totalPages); let pageIndex = index"
+        [ngClass]="{'active-page': pageIndex + 1 === currentPage}" (click)="goToPage(pageIndex + 1)">
+        {{ pageIndex + 1 }}
+      </button>
+    </div>
+    <button type="button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <i class="bi bi-arrow-right"></i>
+    </button>
+  </div>
+  <div class="pagination-info">
+    Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ filteredData.length }} entries
+  </div>
+  <div class="d-grid">
+    <button  [routerLink]='["/admin/employee/add"]' class="add-btn rounded-5 py-2 px-4 fs-5 fw-bold " style="justify-self: end;">Add Employee <i class="bi bi-plus"></i></button>
+  </div>

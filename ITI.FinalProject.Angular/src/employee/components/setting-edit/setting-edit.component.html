@@ -1,0 +1,47 @@
+<div class="settings-container">
+    <h2>Weight Settings</h2>
+    
+    <div class="settings-form">
+        <form [formGroup]="settingEdit" (ngSubmit)="updateSettings()">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Traditional Cost from 0 KG To</label>
+                    <input style="margin-left: 7px;" formControlName="baseWeight" type="number" class="weight-input" placeholder="Weight in KG" value="10">
+                    <span style="margin-left: 10px;color:rgb(36, 46, 134);font-weight: bold;">KG</span>
+                </div>
+                <div class="form-group">
+                    <label>Price per additional kg</label>
+                    <input style="margin-left: 15px;" formControlName="additionalFeePerKg" type="number" class="price-input" placeholder="Price in EGP" value="100">
+                    <span style="margin-left: 10px;color:rgb(36, 46, 134);font-weight: bold;">EGP</span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Village Delivery Fee</label>
+                    <input style="margin-left: 67px;" formControlName="villageDeliveryFee" type="number" class="price-input" placeholder="Price in EGP">
+                    <span style="margin-left: 10px;color:rgb(36, 46, 134);font-weight: bold;">EGP</span>
+                </div>
+                <div class="form-group">
+                    <label>Ordinary Shipping Cost</label>
+                    <input style="margin-left: 9px;" formControlName="ordinaryShippingCost" type="number" class="price-input" placeholder="Price in EGP">
+                    <span style="margin-left: 10px;color:rgb(36, 46, 134);font-weight: bold;">EGP</span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>24 Hours Shipping Cost</label>
+                    <input style="margin-left: 41px;" formControlName="twentyFourHoursShippingCost" type="number" class="price-input" placeholder="Price in EGP">
+                    <span style="margin-left: 10px;color:rgb(36, 46, 134);font-weight: bold;">EGP</span>
+                </div>
+                <div class="form-group">
+                    <label>15 Days Shipping Cost</label>
+                    <input style="margin-left: 15px;" formControlName="fifteenDayShippingCost" type="number" class="price-input" placeholder="Price in EGP">
+                    <span style="margin-left: 10px;color:rgb(36, 46, 134);font-weight: bold;">EGP</span>
+                </div>
+            </div>
+            <div class="form-row save-button-container">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

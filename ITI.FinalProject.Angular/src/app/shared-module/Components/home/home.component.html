@@ -1,0 +1,24 @@
+<div class="home-container">
+    <div class="home-row">
+      <div class="home-page">Home Page</div>
+    </div>
+    <div class="home-row">
+      <div class="home-card">New<span class="badge">{{orderStatuses?.New}}</span></div>
+      <div class="home-card">Pending <span class="badge">{{orderStatuses?.Pending}}</span></div>
+      <div class="home-card">Delivered to Representative<span class="badge">{{orderStatuses?.RepresentativeDelivered}}</span></div>
+    </div>
+    <div class="home-row">
+      <div class="home-card">Delivered<span class="badge">{{orderStatuses?.Delivered}}</span></div>
+      <div class="home-card">Not Accessed<span class="badge">{{orderStatuses?.Unreachable}}</span></div>
+      <div class="home-card">PostPoned<span class="badge">{{orderStatuses?.Delayed}}</span></div>
+    </div>
+    <div class="home-row">
+      <div class="home-card">Partially Delivered<span class="badge">{{orderStatuses?.PartiallyDelivered}}</span></div>
+      <div class="home-card">Canceled by Recipient<span class="badge">{{orderStatuses?.Cancelled}}</span></div>
+      <div class="home-card">Rejected but Paid<span class="badge">{{orderStatuses?.RejectedWithPayment}}</span></div>
+    </div>
+    <div class="home-row">
+      <div class="home-card">Rejected with Partial Payment<span class="badge">{{orderStatuses?.RejectedWithPartiallyPayment}}</span></div>
+      <div class="home-card">Rejected and not Paid<span class="badge">{{orderStatuses?.RejectedWithoutPayment}}</span></div>
+    </div>
+</div>

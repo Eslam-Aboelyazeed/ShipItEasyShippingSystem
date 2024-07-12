@@ -1,0 +1,92 @@
+<h2>Representative List</h2>
+<div class="table-controls mt-3">
+  <div class="entries-select">
+    <label for="entries">Show</label>
+    <select id="entries" [(ngModel)]="selectedEntries" (change)="onEntriesChange()">
+      <option value="5">5</option>
+      <option value="8">8</option>
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+    </select>
+    <label for="entries" class="ms-2">entries</label>
+  </div>
+  <div class="search-bar">
+    <label for="search">Search:</label>
+    <input type="text" id="search" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="🔍 Search records">
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        
+        <th>Branch</th>
+        <th>Governorates</th>
+        <th>Phone</th>
+        
+        <th>Company Percent</th>
+        <th>Status</th>
+        <th>Settings</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let representative of representatives; let i = index">
+        <td>{{representative.id}}</td>
+        <td>
+          <div class="name-role">
+            <span class="name">{{representative.userFullName}}</span>
+          </div>
+        </td>
+        
+        <td>{{getBranchName(representative.userBranchId)}}</td>
+        <td>
+          @for (item of getGovNames(representative.governorateIds); track $index) {
+          <h6>{{item}}</h6>
+          }
+        </td>
+        <td>{{representative.userPhoneNo}}</td>
+        
+        
+        <td>{{ (representative.discountType==0)? representative.companyPercentage:representative.companyPercentage+"%"}} </td>
+        <td><span class="badge active"
+          [ngClass]="{'active': StatusName(representative.userStatus) === 'Active', 'inactive': StatusName(representative.userStatus) === 'Inactive'}"
+          >{{StatusName(representative.userStatus)}}</span></td>
+        <td>
+          <div class="settings">
+            <a [routerLink]="['/admin/representative/edit', representative.id]" class="pen-settings">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <a  class="setting" (click)="deleteRepresentative(representative.id)">
+              <i class="bi bi-trash3 text-danger px-1"></i>
+            </a>
+          </div>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination">
+  <button type="button" (click)="previousPage()" [disabled]="currentPage === 1">
+    <i class="bi bi-arrow-left"></i>
+  </button>
+  <div class="page-numbers">
+    <button *ngFor="let page of [].constructor(pagesNum); let pageIndex = index"
+      [ngClass]="{'active-page': pageIndex + 1 === currentPage}" (click)="goToPage(pageIndex + 1)">
+      {{ pageIndex + 1 }}
+    </button>
+  </div>
+  <button type="button" (click)="nextPage()" [disabled]="currentPage === pagesNum">
+    <i class="bi bi-arrow-right"></i>
+  </button>
+</div>
+<div class="pagination-info">
+  Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ representatives.length }} entries
+</div>
+
+<div class="d-grid">
+  <button  [routerLink]='["/admin/representative/add"]' class="add-btn rounded-5 py-2 px-4 fs-5 fw-bold " style="justify-self: end;">Add Representative <i class="bi bi-plus"></i></button>
+</div>

@@ -1,0 +1,124 @@
+
+<h1 class=" text-start my-5">{{(representativeId)? "Edit Representative":"Add Representative"}}</h1>
+
+
+<form [formGroup]="representativeForm" class=" d-flex flex-row flex-wrap " >
+  
+
+    <div class="row d-flex flex-row w-100 justify-content-around">
+      <div class="col-4 mb-3  d-flex flex-column">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="" id="name" aria-describedby="Name" formControlName="userFullName">
+        <label *ngIf="getName.hasError('required')  && getName.touched" class="error">
+          the Name is required
+        </label>
+      </div>
+      <div class="col-4 mb-3  d-flex flex-column">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email">
+        <label *ngIf="(getEmail.hasError('required') || getEmail.hasError('email'))  && getEmail.touched" class="error">
+          invalid Email
+        </label>
+      </div>
+      <div class="col-4 mb-3  d-flex flex-column">
+
+        <label for="status" class="form-label ">Status</label>
+        <select  class="select form-select p-1" aria-label="Default select example" formControlName="userStatus">
+          <option selected value="1">Active</option>
+          <option value="0">InActive</option>
+        </select>
+        <label class="error"></label>
+
+      </div>
+
+    </div>
+    <div class="row d-flex flex-row w-100 justify-content-around">
+      <div class="col-4 mb-3  d-flex flex-column">
+        <label for="branch" class="form-label mt-3">Branch</label>
+        <select class="select form-select" aria-label="Default select example" formControlName="userBranchId">
+          <option value="0" selected>Select the branch</option>
+          <option *ngFor="let branch of branches; let i= index" [value]="branch.id">{{branch.name}}</option>
+
+        </select>
+        <label *ngIf="(getBranch.hasError('required') || getBranch.hasError('min'))  && getBranch.touched" class="error">
+          the Branch is required
+        </label>
+      </div>
+      <div class="col-4 mb-3 d-flex flex-column">
+        <label for="branch" class="form-label mt-3">Governorate</label>
+        <div class="btn-group">
+          <button (click)="govFlag=true" class="btn select dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" >
+            Select the Governorates
+          </button>
+          <ul class="dropdown-menu  ps-2">
+            <li *ngFor="let gov of governorates; let i = index">
+              <input class="form-check-input me-1" (input)="selectGov($event)" type="checkbox" [name]="gov.name" [value]="gov.id">
+              <label class="form-check-label" for="flexCheckDefault">{{gov.name}} </label>
+            </li>
+          </ul>
+        </div>
+        <label *ngIf="!govLen && govFlag" class="error">
+          choose at least one governorate
+        </label>
+      </div>
+      <div class="col-4 mb-3 d-flex flex-column">
+        <label for="phone" class="form-label mt-3">Phone</label>
+        <input type="text" class="" id="phone" aria-describedby="Name" formControlName="userPhoneNo">
+        <label *ngIf="(getPhone.hasError('required') || getPhone.hasError('minlength')|| getPhone.hasError('maxlength'))  && getPhone.touched" class="error">
+          Phone Number is Required
+        </label>
+      </div>
+    </div>
+    <div class="row d-flex flex-row w-100 justify-content-around">
+      <div class="col-4 mb-3 d-flex flex-column">
+        <label for="address" class="form-label mt-3">Address</label>
+        <input type="text" class="" id="address" aria-describedby="address" formControlName="userAddress">
+        <label *ngIf="getAddress.hasError('required')  && getAddress.touched" class="error">
+          The Address is required
+        </label>
+      </div>
+      <div class="col-4 mb-3  d-flex flex-column">
+        <label for="branch" class="form-label mt-3">Discount Type</label>
+        <select  class="select form-select p-1" aria-label="Default select example" formControlName="discountType">
+          <option selected value="1">percentage</option>
+          <option value="0">Amount</option>
+        </select>
+        <label class="error"></label>
+      </div>
+      <div class="col-4 mb-3 d-flex flex-column">
+        <label for="percent" class="form-label mt-3">Company percentage Per order</label>
+        <input type="number" class="" id="percent" aria-describedby="percent" formControlName="companyPercentage">
+        <label *ngIf="getCompanyPercentage.hasError('required')  && getCompanyPercentage.touched" class="error">
+          Company percentage is required
+        </label>
+      </div>
+    </div>
+    <div class="row d-flex flex-row w-100 justify-content-start">
+
+      <div *ngIf="representativeId" class="col-4 mb-3  d-flex flex-column">
+        <label for="exampleInputPassword1" class="form-label">Old Password</label>
+        <input type="password" class="" id="exampleInputPassword1" formControlName="oldPassword">
+        <label *ngIf="(getOldPassword.hasError('required') || getOldPassword.hasError('pattern'))  && getOldPassword.touched" class="error">
+          Invalid Password
+        </label>
+      </div>
+      <div *ngIf="representativeId" class="col-4 mb-3  d-flex flex-column">
+        <label for="exampleInputPassword1" class="form-label">New Password</label>
+        <input type="password" class="" id="exampleInputPassword1" formControlName="newPassword">
+        <label *ngIf="(getNewPassword.hasError('required') || getNewPassword.hasError('pattern'))  && getNewPassword.touched" class="error">
+          Invalid Password
+        </label>
+      </div>
+      <div *ngIf="!representativeId" class="col-4 mb-3  d-flex flex-column">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="" id="exampleInputPassword1" formControlName="password">
+        <label *ngIf="(getNewPassword.hasError('required') || getNewPassword.hasError('pattern'))  && getNewPassword.touched" class="error">
+          Invalid Password
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <button (click)="onSubmit()"  [disabled]="!(representativeForm.valid && govLen)" class="btn btn-primary ms-2">Submit</button>
+    </div>
+
+</form>

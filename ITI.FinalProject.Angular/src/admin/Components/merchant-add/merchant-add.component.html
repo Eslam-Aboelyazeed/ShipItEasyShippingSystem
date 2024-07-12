@@ -1,0 +1,207 @@
+<div class="form-container">
+  <h2>Add Merchant</h2>
+
+  <form [formGroup]="addMerchantForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="storeName">Store Name</label>
+        <input type="text" id="storeName" formControlName="storeName">
+      </div>
+      <div class="form-group">
+        <label for="userName">Username <span class="required">*</span></label>
+        <input type="text" id="userName" formControlName="userName" required>
+        <div
+          *ngIf="addMerchantForm && addMerchantForm.get('userName')?.invalid && addMerchantForm.get('userName')?.touched"
+          class="error-msg">
+          Username is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="passwordHash">Password <span class="required">*</span></label>
+        <input type="password" id="passwordHash" formControlName="passwordHash" required>
+        <div
+          *ngIf="addMerchantForm && addMerchantForm.get('passwordHash')?.invalid && addMerchantForm.get('passwordHash')?.touched"
+          class="error-msg">
+          Password is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">Email <span class="required">*</span></label>
+        <input type="email" id="email" formControlName="email" required>
+        <div *ngIf="addMerchantForm && addMerchantForm.get('email')?.touched" class="error-msg">
+          <div *ngIf="addMerchantForm.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="addMerchantForm.get('email')?.errors?.['email']">Email is invalid.</div>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="address">Address <span class="required">*</span></label>
+        <input type="text" id="address" formControlName="address" required>
+        <div
+          *ngIf="addMerchantForm && addMerchantForm.get('address')?.invalid && addMerchantForm.get('address')?.touched"
+          class="error-msg">
+          Address is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number <span class="required">*</span></label>
+        <input type="text" id="phoneNumber" formControlName="phoneNumber" required>
+        <div
+          *ngIf="addMerchantForm && addMerchantForm.get('phoneNumber')?.invalid && addMerchantForm.get('phoneNumber')?.touched"
+          class="error-msg">
+          Phone Number is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="governorateId">Governorate <span class="required">*</span></label>
+        <select id="governorate" formControlName="governorateId">
+          <option value="" disabled selected>Select Governorate</option>
+          <option *ngFor="let governorate of governorates" [value]="governorate.id">
+            {{ governorate.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="addMerchantForm && addMerchantForm.get('governorateId')?.invalid && addMerchantForm.get('governorateId')?.touched"
+          class="error-msg">
+          Governorate is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cityId">City <span class="required">*</span></label>
+        <select id="city" formControlName="cityId">
+          <option value="" disabled selected>Select City</option>
+          <option *ngFor="let city of filteredCities" [value]="city.id">
+            {{ city.name }}
+          </option>
+        </select>
+        <div *ngIf="addMerchantForm && addMerchantForm.get('cityId')?.invalid && addMerchantForm.get('cityId')?.touched"
+          class="error-msg">
+          City is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="branchId">Branch <span class="required">*</span></label>
+        <select id="branch" formControlName="branchId">
+          <option value="" disabled selected>Select Branch</option>
+          <option *ngFor="let branch of filteredBranches" [value]="branch.id">
+            {{ branch.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="addMerchantForm && addMerchantForm.get('branchId')?.invalid && addMerchantForm.get('branchId')?.touched"
+          class="error-msg">
+          Branch is required.
+        </div>
+      </div>
+
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="specialPickupShippingCost">Special Pickup Cost</label>
+        <input type="number" id="specialPickupShippingCost" formControlName="specialPickupShippingCost">
+      </div>
+      <div class="form-group">
+        <label for="merchantPayingPercentageForRejectedOrders">Merchant Paying Percentage for Rejected Orders
+          (%) <span class="required">*</span></label>
+        <input type="number" id="merchantPayingPercentageForRejectedOrders"
+          formControlName="merchantPayingPercentageForRejectedOrders" required>
+        <div
+          *ngIf="addMerchantForm && addMerchantForm.get('merchantPayingPercentageForRejectedOrders')?.invalid && addMerchantForm.get('merchantPayingPercentageForRejectedOrders')?.touched"
+          class="error-msg">
+          Merchant paying percentage is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <p class="text">Special price packages</p>
+    </div>
+    <div class="table-container">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Governorate</th>
+            <th>City</th>
+            <th>Shipping Price</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr *ngFor="let package of displaySpecialPackage; let i = index">
+            <td>{{ package.governorateName }}</td>
+            <td>{{ package.cityName }}</td>
+            <td>{{ package.shippingPrice }}</td>
+            <td class="settings">
+              <button type="button" class="setting" (click)="deleteSpecialPackage(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+          
+          <tr *ngIf="addSpecialPackage" [formGroup]="newPackageForm">
+            <td>
+              <div class="form-group">
+                <select class="form-control" formControlName="governorateId" required>
+                  <option *ngFor="let governorate of governorates" [value]="governorate.id">{{ governorate.name }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="newPackageForm.get('governorateId')?.invalid && newPackageForm.get('governorateId')?.touched"
+                  class="error-msg">
+                  Governorate is required.
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control" formControlName="cityId" required>
+                  <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+                </select>
+                <div *ngIf="newPackageForm.get('cityId')?.invalid && newPackageForm.get('cityId')?.touched"
+                  class="error-msg">
+                  City is required.
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <input type="number" class="form-control" formControlName="shippingPrice" required>
+                <div
+                  *ngIf="newPackageForm.get('shippingPrice')?.invalid && newPackageForm.get('shippingPrice')?.touched"
+                  class="error-msg">
+                  Shipping Price is required.
+                </div>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="setting2" (click)="saveSpecialPackage()">
+                <i class="bi bi-check-lg"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+    <div class="form-row add-button-container">
+      <button type="button" class="add-new-btn" [ngClass]="{'cancel-btn': addSpecialPackage}"
+        (click)="toggleAddNewPackage()">
+        {{ addSpecialPackage ? 'Cancel' : 'Add New' }} <i class="bi bi-plus-lg" *ngIf="!addSpecialPackage"></i><i
+          class="bi bi-x-lg" *ngIf="addSpecialPackage"></i>
+      </button>
+    </div>
+
+    
+    <div class="form-row save-button-container mb-0">
+      <button type="submit" class="save-btn">Save Merchant <i class="bi bi-check-lg"></i></button>
+    </div>
+  </form>
+</div>

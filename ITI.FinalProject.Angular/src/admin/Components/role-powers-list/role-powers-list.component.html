@@ -1,0 +1,87 @@
+<h2>Role List</h2>
+<div class="table-controls">
+    <div class="entries-select">
+      <label for="entries">Show</label>
+      <select id="entries" [(ngModel)]="selectedEntries" (change)="onEntriesChange()">
+        <option value="8">8</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+      </select>
+      <label for="entries" class="ms-2">entries</label>
+    </div>
+    <div class="search-bar">
+      <label for="search">Search:</label>
+      <input type="text" id="search" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="🔍 Search records">
+    </div>
+</div>
+
+<div class="table-container">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Time Of Addition</th>
+          <th>Settings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data; let i = index">
+          <td>{{ row.roleId }}</td>
+          <td>
+            <div class="name-role">
+              <span class="name">{{ row.roleName }}</span>
+            </div>
+          </td>
+          <td>{{ row.timeOfAddtion }}</td>
+                              <td class="settings">
+            <div class="pen-settings">
+              <a class="setting" [routerLink]="['/admin/role/edit', row.roleId]">
+                <i class="bi bi-pencil"></i>
+              </a>
+            </div>
+            <div class="trash-settings ms-2">
+              <a class="setting" style="cursor: pointer;" (click)="deleteRole(row.roleId)" >
+                <i class="bi bi-trash text-black"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    <button type="button" (click)="previousPage()" [disabled]="currentPage === 1">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <div class="page-numbers">
+      <button *ngFor="let page of [].constructor(totalPages); let pageIndex = index"
+        [ngClass]="{'active-page': pageIndex + 1 === currentPage}" (click)="goToPage(pageIndex + 1)">
+        {{ pageIndex + 1 }}
+      </button>
+    </div>
+    <button type="button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <i class="bi bi-arrow-right"></i>
+    </button>
+  </div>
+  <div class="pagination-info">
+    
+    Showing {{ ((( (currentPage - 1) * selectedEntries) + 1) > totalCount)?totalCount:(( (currentPage - 1) * selectedEntries) + 1) }} to {{ ((selectedEntries * currentPage) > totalCount)?totalCount:(selectedEntries * currentPage) }} of {{ totalCount }} entries
+  </div>
+<div class="d-grid">
+    <button (click)="toggleModal()" class="add-btn rounded-5 py-2 px-4 fs-5 fw-bold" style="justify-self: end;">Add Role <i class="bi bi-plus"></i></button>
+</div>
+
+<div *ngIf="showModal" class="popup-modal" (click)="closeModal()">
+    <div class="modal-content d-grid" (click)="stopPropagation($event)">
+        <button class="close-button" (click)="toggleModal()"><i class="bi bi-x"></i></button>
+        <label class="input-label">Role Name</label>
+        <input type="text" class="input-field" id="name" (input)="roleNameModified()" [(ngModel)]="roleName" placeholder="Enter Role Name">
+        @if (!isValid) {
+            <div id="name-validation" class="form-text text-danger">Role Name is Required and must have 3 or more characters</div>
+        }
+        <button class="confirm-button mt-2 w-50" style="justify-self: center;" (click)="addRole()">Add Role</button>
+    </div>
+</div>

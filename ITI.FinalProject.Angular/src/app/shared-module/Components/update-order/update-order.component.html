@@ -1,0 +1,40 @@
+<div class="form-container">
+    <h2>Update Order</h2>
+    <form class="form" [formGroup]="form" (submit)="updateOrder()">
+        <div class="form-row">
+                        <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-select text-center" id="status" formControlName="orderStatus" (change)="onStatusChange()">
+                    <option selected disabled value=-1>--Select the order status--</option>
+                    @for (option of options; track $index) {
+                        <option value={{getEnumIndexFromString(option)}}>{{ option }}</option>
+                    }
+                </select>                      
+                @if (form.controls['orderStatus'].touched && form.controls['orderStatus'].errors) {
+                    <div id="status-validation" class="form-text text-danger">Status is Required</div>
+                }
+            </div>
+            @if (showRep) {
+                <div class="form-group">
+                    <label for="representativeId">Representative</label>
+                    <select id="representative" formControlName="representativeId">
+                      <option value="" disabled selected>Select Representative</option>
+                      <option *ngFor="let representative of representatives" [value]="representative.id">
+                        {{ representative.name }}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="form && form.get('representativeId')?.invalid && form.get('representativeId')?.touched"
+                      class="error-msg">
+                      Representative is required.
+                    </div>
+                </div>
+            }
+        
+        </div>
+
+        <div class="form-row save-button-container">
+            <button type="submit" class="save-btn">Save <i class="bi bi-check-lg"></i></button>
+        </div>
+    </form>
+</div>

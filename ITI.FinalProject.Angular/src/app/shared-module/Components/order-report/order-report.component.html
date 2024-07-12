@@ -1,0 +1,122 @@
+<div class="form-container">
+  <h2>Order Reports</h2>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="Status">Order Status</label>
+      <select id="Status" name="Status" required [(ngModel)]="selectedStatus">
+        <option value="" disabled>Select Order Status</option>
+        <option *ngFor="let status of orderStatuses" [value]="status">{{status}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="from-date">From</label>
+      <input type="datetime-local" id="from-date" [(ngModel)]="fromDate">
+    </div>
+    <div class="form-group">
+      <label for="to-date">To</label>
+      <input type="datetime-local" id="to-date" [(ngModel)]="toDate">
+    </div>
+    <div class="form-group">
+      <button type="button" class="search-btn" (click)="searchOrders()">Search <i class="bi bi-search"></i></button>
+      <button type="button" class="ms-2 search-btn" (click)="resetFilters()">Reset Filters </button>
+
+    </div>
+  </div>
+
+  <div class="table-controls">
+    <div class="entries-select">
+      <label for="entries">Show</label>
+      <select id="entries" [(ngModel)]="selectedEntries" (change)="onEntriesChange()">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+      </select>
+      <label for="entries" class="ms-2">entries</label>
+    </div>
+    
+  </div>
+
+  <div class="table-wrapper">
+    <div class="table-container">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Status</th>
+            <th>Client Name</th>
+            <th>Date</th>
+            <th>Phone</th>
+            <th>Phone 2</th>
+            <th>Email</th>
+            <th>Notes</th>
+            <th>Total Price</th>
+            <th>Total Weight</th>
+            <th>Village and Street</th>
+            <th>Shipping to Village</th>
+            <th>Merchant Name</th>
+            <th>Governorate Name</th>
+            <th>City Name</th>
+            <th>Branch Name</th>
+            <th>Representative Name</th>
+            <th>Order Money Received</th>
+            <th>Shipping Money Received</th>
+            <th>Company Profit</th>
+            <th>Shipping Cost</th>
+            <th>Type</th>
+            <th>Payment Type</th>
+            <th>Shipping Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of pagedData; trackBy: trackById">
+            <td>{{ row.id }}</td>
+            <td>{{ getStatusText(row.status) }}</td>
+            <td>{{ row.clientName }}</td>
+            <td>{{ row.date | date }}</td>
+            <td>{{ row.phone }}</td>
+            <td>{{ row.phone2 }}</td>
+            <td>{{ row.email }}</td>
+            <td>{{ row.notes }}</td>
+            <td>{{ formatPrice(row.totalPrice) }}</td>
+            <td>{{ row.totalWeight }} KG</td>
+            <td>{{ row.villageAndStreet }}</td>
+            <td>{{ row.shippingToVillage }}</td>
+            <td>{{ row.merchantName }}</td>
+            <td>{{ row.governorateName }}</td>
+            <td>{{ row.cityName }}</td>
+            <td>{{ row.branchName }}</td>
+            <td>{{ row.representativeName }}</td>
+            <td>{{ row.orderMoneyReceived }}</td>
+            <td>{{ row.shippingMoneyReceived }}</td>
+            <td>{{ row.companyProfit }}</td>
+            <td>{{ formatPrice(row.shippingCost) }}</td>
+            <td>{{ getTypeText(row.type) }}</td>
+            <td>{{ getPaymentTypeText(row.paymentType) }}</td>
+            <td>{{ getShippingTypeText(row.shippingType) }}</td>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <div class="pagination">
+    <button type="button" (click)="previousPage()" [disabled]="currentPage === 1">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <div class="page-numbers">
+      <button *ngFor="let page of [].constructor(totalPages); let pageIndex = index"
+        [ngClass]="{'active-page': pageIndex + 1 === currentPage}" (click)="goToPage(pageIndex + 1)">
+        {{ pageIndex + 1 }}
+      </button>
+    </div>
+    <button type="button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <i class="bi bi-arrow-right"></i>
+    </button>
+  </div>
+  <div class="pagination-info">
+    Showing {{ startIndex }} to {{ endIndex }} of {{ totalCount }} entries
+  </div>
+</div>

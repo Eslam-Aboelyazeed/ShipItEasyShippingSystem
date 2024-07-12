@@ -1,0 +1,72 @@
+<div class="form-container">
+  <h2>Add Employee</h2>
+
+  <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" formControlName="fullName" required>
+      </div>
+      <div class="form-group">
+        <label for="userName">Username</label>
+        <input type="text" id="userName" formControlName="userName" required>
+      </div>
+      <div class="form-group">
+        <label for="passwordHash">Password</label>
+        <input type="password" id="passwordHash" formControlName="passwordHash" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" formControlName="address" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone</label>
+        <input type="text" id="phoneNumber" formControlName="phoneNumber" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="branch">Branch</label>
+        <select id="branch" formControlName="branchId" required>
+          <option value="0" selected disabled>-- select the branch --</option>
+          <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+        </select>
+        @if (addEmployeeForm.controls['branchId'].touched && addEmployeeForm.controls['branchId'].errors) {
+          <div id="status-validation" class="form-text text-danger">Branch is Required</div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" formControlName="role" required>
+          <option value="" selected disabled>-- select the role --</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+        @if (addEmployeeForm.controls['role'].touched && addEmployeeForm.controls['role'].errors) {
+          <div id="status-validation" class="form-text text-danger">Role is Required</div>
+        }
+      </div>
+      <div class="form-group">
+                <label for="status">Status</label>
+        <select class="form-select text-center" id="status" formControlName="status">
+            <option selected disabled value=-1>--Select the employee status--</option>
+            @for (option of options; track $index) {
+                <option value="{{$index}}">{{ option }}</option>
+            }
+        </select>                      
+        @if (addEmployeeForm.controls['status'].touched && addEmployeeForm.controls['status'].errors) {
+            <div id="status-validation" class="form-text text-danger">Employee Status is Required</div>
+        }
+    </div>
+    </div>
+
+    <div class="form-row save-button-container mb-0">
+      <button type="submit" class="save-btn">Save Employee <i class="bi bi-check-lg"></i></button>
+    </div>
+  </form>
+</div>
