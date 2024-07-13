@@ -1,14 +1,14 @@
 @if (currentUrl != "/login") {
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+  <div class="page-wrapper {{(showSidebar?'mini-sidebar show-sidebar':'')}}" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
     <aside class="left-sidebar">
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img" style="font-weight: bold; color: #1d516d;font-size: 22px;">
+          <a [routerLink]="'/'" class="text-nowrap logo-img" style="font-weight: bold; color: #1d516d;font-size: 22px;">
             <img src="../assets/images/logos/logo.png" width="100" alt="" />
             ShipItEasy
           </a>
-          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+          <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse" style="cursor: pointer;" (click)="toggleSidebar()">
             <i class="ti ti-x fs-8"></i>
           </div>
         </div>
@@ -156,7 +156,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" style="cursor: pointer;" (click)="toggleSidebar()">
                 <i class="ti ti-menu-2"></i>
               </a>
             </li>

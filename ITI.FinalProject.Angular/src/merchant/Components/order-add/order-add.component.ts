@@ -82,7 +82,7 @@ export class OrderAddComponent implements OnInit, OnDestroy {
         this.filterCities(governorateId);
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -112,7 +112,7 @@ export class OrderAddComponent implements OnInit, OnDestroy {
         this.filterBranches(cityId);
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -155,7 +155,7 @@ export class OrderAddComponent implements OnInit, OnDestroy {
         this.filteredCities = data;
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -188,7 +188,7 @@ export class OrderAddComponent implements OnInit, OnDestroy {
         this.governorates = data;
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -221,7 +221,7 @@ export class OrderAddComponent implements OnInit, OnDestroy {
         this.filteredBranches = data;
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -394,7 +394,7 @@ export class OrderAddComponent implements OnInit, OnDestroy {
           this.router.navigate(['/orderShow']);
         },
         error: (error) => {
-          if (error.statusCode == 401) {
+          if (error.status == 401) {
             Swal.fire({
               icon: "error",
               title: "Error",

@@ -164,7 +164,7 @@ export class RepresentativeFormComponent implements OnInit, OnDestroy {
 
             },
             error: (error) => {
-              if (error.statusCode == 401) {
+              if (error.status == 401) {
                 Swal.fire({
                   icon: "error",
                   title: "Error",
@@ -206,7 +206,7 @@ export class RepresentativeFormComponent implements OnInit, OnDestroy {
         this.branches = value;
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -236,7 +236,7 @@ export class RepresentativeFormComponent implements OnInit, OnDestroy {
         this.governorates = value;
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -293,7 +293,7 @@ export class RepresentativeFormComponent implements OnInit, OnDestroy {
 
         },
         error:(error)=> {
-          if (error.statusCode == 401) {
+          if (error.status == 401) {
             Swal.fire({
               icon: "error",
               title: "Error",
@@ -338,7 +338,7 @@ export class RepresentativeFormComponent implements OnInit, OnDestroy {
 
         },
         error:(error)=> {
-          if (error.statusCode == 401) {
+          if (error.status == 401) {
             Swal.fire({
               icon: "error",
               title: "Error",

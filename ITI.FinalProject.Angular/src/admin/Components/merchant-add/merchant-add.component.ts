@@ -255,7 +255,7 @@ export class MerchantAddComponent implements OnInit {
         this.filteredCities = data;
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -288,7 +288,7 @@ export class MerchantAddComponent implements OnInit {
         this.governorates = data;
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -321,7 +321,7 @@ export class MerchantAddComponent implements OnInit {
         this.filteredBranches = data;
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -488,7 +488,7 @@ export class MerchantAddComponent implements OnInit {
             });
           },
           (error) => {
-            if (error.statusCode == 401) {
+            if (error.status == 401) {
               Swal.fire({
                 icon: "error",
                 title: "Error",

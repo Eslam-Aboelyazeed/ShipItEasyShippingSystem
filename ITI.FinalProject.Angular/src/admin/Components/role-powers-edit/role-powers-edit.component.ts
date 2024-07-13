@@ -85,7 +85,7 @@ export class RolePowersEditComponent {
             }
           },
           error: error => {
-            if (error.statusCode == 401) {
+            if (error.status == 401) {
               Swal.fire({
                 icon: "error",
                 title: "Error",
@@ -193,7 +193,7 @@ export class RolePowersEditComponent {
         this.router.navigate(["/admin/role"]);
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",

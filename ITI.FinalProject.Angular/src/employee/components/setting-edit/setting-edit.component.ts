@@ -58,7 +58,7 @@ export class SettingEditComponent implements OnInit, OnDestroy{
       }
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -93,7 +93,7 @@ export class SettingEditComponent implements OnInit, OnDestroy{
           this.router.navigate(['/employee/setting']);
         },
         error: (error) => {
-          if (error.statusCode == 401) {
+          if (error.status == 401) {
             Swal.fire({
               icon: "error",
               title: "Error",

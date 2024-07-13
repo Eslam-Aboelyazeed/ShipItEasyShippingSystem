@@ -8,20 +8,6 @@ export class AuthService {
 
   constructor(private cookieService:CookieService) {}
 
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
-
   getToken(): string | null{
     if (this.cookieService.get('Token') != '') {
       return this.cookieService.get('Token');

@@ -61,7 +61,7 @@ export class GovernorateEditComponent implements OnInit, OnDestroy {
             }
           },
           error: error => {
-            if (error.statusCode == 401) {
+            if (error.status == 401) {
               Swal.fire({
                 icon: "error",
                 title: "Error",
@@ -139,7 +139,7 @@ export class GovernorateEditComponent implements OnInit, OnDestroy {
         this.router.navigate(["/admin/governorate"]);
       },
       error: error => {
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",

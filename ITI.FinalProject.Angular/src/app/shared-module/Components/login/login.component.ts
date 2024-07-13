@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from '../../../../admin/Services/account.service';
+import { AccountService } from '../../Services/account.service';
 import { CommonModule } from '@angular/common';
 import { LoginCredentials } from '../../../../admin/DTOs/InsertDTOs/IAccount';
 import Swal from 'sweetalert2';

@@ -58,7 +58,7 @@ export class CityAddComponent implements OnInit, OnDestroy{
         
       },
       error: error =>{
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -101,7 +101,7 @@ export class CityAddComponent implements OnInit, OnDestroy{
 
       },
       error: (error)=>{
-        if (error.statusCode == 401) {
+        if (error.status == 401) {
           Swal.fire({
             icon: "error",
             title: "Error",
